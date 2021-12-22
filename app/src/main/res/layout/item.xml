@@ -23,8 +23,7 @@
                 android:id="@+id/image1"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/item_bg"
-                android:background="@drawable/item_bg"/>
+                android:src="@drawable/detail_item" />
 
         </FrameLayout>
 
