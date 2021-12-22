@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.add);
 
         btnAdd.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), FormActivity.class);
+            Intent intent = new Intent(getBaseContext(), FormActivity.class);
 
             startActivityForResult(intent, 0);
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         listViewSinhvien.setOnItemClickListener((adapterView, view, i, l) -> {
             ProductGet productGet = rowssv.get(i);
 
-            Intent intent = new Intent(getApplicationContext(), FormActivity.class);
+            Intent intent = new Intent(getBaseContext(), FormActivity.class);
 
             ProductPost productPost = ProductPost.builder()
                     .Id(productGet.getId())
@@ -120,14 +121,17 @@ public class MainActivity extends AppCompatActivity {
                 GetResponseDto body = response.body();
                 System.out.println(body);
 
-                rowssv = body.getData();
 
-                listViewSinhvien = (ListView) findViewById(R.id.lvSinhVien);
+               if(body != null){
+                   rowssv = body.getData();
 
-                sinhVienAdapter = new SinhVienAdapter(MainActivity.this, R.layout.activity_main, rowssv);
-                //
+                   listViewSinhvien = (ListView) findViewById(R.id.lvSinhVien);
 
-                listViewSinhvien.setAdapter(sinhVienAdapter);
+                   sinhVienAdapter = new SinhVienAdapter(MainActivity.this, R.layout.activity_main, rowssv);
+                   //
+
+                   listViewSinhvien.setAdapter(sinhVienAdapter);
+               }
 
             }
 
